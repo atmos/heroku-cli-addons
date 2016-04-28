@@ -6,7 +6,11 @@ let expect = require('unexpected')
 let Heroku = require('heroku-client')
 
 describe('resolve', () => {
-  beforeEach(() => cli.mockConsole())
+  beforeEach(function () {
+    resolve.addon.cache.clear()
+    cli.mockConsole()
+  })
+
   afterEach(() => nock.cleanAll())
 
   describe('addon', () => {

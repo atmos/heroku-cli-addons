@@ -1,10 +1,15 @@
 'use strict'
 /* globals commands it describe beforeEach afterEach cli nock */
 
+let resolve = require('../../../lib/resolve')
+
 let cmd = commands.find((c) => c.topic === 'addons' && c.command === 'upgrade')
 let expect = require('unexpected')
 describe('addons:upgrade', () => {
-  beforeEach(() => cli.mockConsole())
+  beforeEach(function () {
+    resolve.addon.cache.clear()
+    cli.mockConsole()
+  })
   afterEach(() => nock.cleanAll())
 
   let addon = {name: 'redis-swiftly-123', addon_service: {name: 'heroku-redis'}, app: {name: 'myapp'}, plan: {name: 'premium-0'}}

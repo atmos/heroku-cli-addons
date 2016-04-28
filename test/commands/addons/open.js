@@ -1,12 +1,16 @@
 'use strict'
 /* globals describe commands beforeEach it nock expect */
 
+let resolve = require('../../../lib/resolve')
 let cli = require('heroku-cli-util')
 cli.open = require('../../opn')
 let cmd = commands.find((c) => c.topic === 'addons' && c.command === 'open')
 
 describe('addons:open', function () {
-  beforeEach(() => cli.mockConsole())
+  beforeEach(function () {
+    resolve.addon.cache.clear()
+    cli.mockConsole()
+  })
 
   it('only prints the URL when --show-url passed', function () {
     let api = nock('https://api.heroku.com:443')
