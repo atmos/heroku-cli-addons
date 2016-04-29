@@ -74,4 +74,10 @@ describe('addons:destroy', () => {
     .then(() => attachApi.done())
     .then(() => addonDelete.done())
   })
+
+  it('throws error on missing addon names', () => {
+    return cmd.run({app: 'myapp', flags: {confirm: 'myapp'}, args: []})
+    .then(() => { throw new Error('expected error') })
+    .catch((err) => expect(err.message, 'to equal', 'Missing add-on name'))
+  })
 })
